@@ -1,0 +1,22 @@
+framework:
+    http_client:
+        default_options:
+            max_redirects: 5
+            timeout: 30  # en secondes
+            verify_peer: true
+            verify_host: true
+        scoped_clients:
+            tmdb.client:
+                base_uri: '%env(TMDB_API_BASE_URL)%'
+                headers:
+                    'Authorization': 'Bearer %env(TMDB_API_TOKEN)%'
+                    'Accept': 'application/json'
+                    'Content-Type': 'application/json'
+                # Options spécifiques pour ce client
+                max_redirects: 5
+                timeout: 30
+                retry_failed:
+                    max_retries: 3
+                    delay: 1000  # en millisecondes
+                    multiplier: 2  # temps d'attente multiplié par 2 à chaque nouvel essai
+                http_version: '2.0'

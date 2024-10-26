@@ -1,0 +1,105 @@
+{% if movie is defined %}
+    <div class="modal-header">
+        <h5 class="modal-title" id="movieModalLabel">{{ movie.title }}</h5>
+    </div>
+
+    <div class="modal-body p-0">
+        <!-- Media Section -->
+        <div class="media-container">
+            <!-- Poster -->
+            {% if movie.posterPath %}
+                <div class="poster-wrapper" {% if movie.trailer is defined %}data-has-trailer="true"{% endif %}>
+                    <img src="https://image.tmdb.org/t/p/original{{ movie.posterPath }}"
+                         class="w-100 movie-poster"
+                         alt="{{ movie.title }}">
+
+                    {% if movie.trailer is defined %}
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <!-- Trailer -->
+            {% if movie.trailer is defined %}
+                <div class="trailer-wrapper d-none">
+                    <div class="ratio ratio-16x9">
+                        <iframe id="trailerFrame"
+                                src="about:blank"
+                                data-src="https://www.youtube.com/embed/{{ movie.trailer.key }}?autoplay=1"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="p-2 text-center">
+                        <button class="btn btn-sm btn-secondary return-to-poster">
+                            <i class="bi bi-arrow-left"></i> Return to poster
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Movie Details -->
+        <div class="movie-details p-3">
+            <div class="mb-4">
+                <p class="lead mb-3">{{ movie.overview }}</p>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded h-100">
+                            <h6 class="border-bottom pb-2 mb-3">Primary Information</h6>
+                            <div class="mb-2">
+                                <small class="text-muted">Release Date</small>
+                                <div>{{ movie.releaseDate|date('Y-m-d') }}</div>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">Rating</small>
+                                <div>
+                                    <span class="badge bg-primary">{{ movie.voteAverage }}/10</span>
+                                    <small class="text-muted">({{ movie.voteCount }} votes)</small>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">Popularity</small>
+                                <div>{{ movie.popularity }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded h-100">
+                            <h6 class="border-bottom pb-2 mb-3">Additional Details</h6>
+                            <div class="mb-2">
+                                <small class="text-muted">Original Title</small>
+                                <div>{{ movie.originalTitle }}</div>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">Original Language</small>
+                                <div>{{ movie.originalLanguage|upper }}</div>
+                            </div>
+                            {% if movie.genres is defined and movie.genres|length > 0 %}
+                                <div class="mb-2">
+                                    <small class="text-muted">Genres</small>
+                                    <div>
+                                        {% for genre in movie.genres %}
+                                            <span class="badge bg-secondary me-1">{{ genre.name }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="modal-header">
+        <h5 class="modal-title">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-danger" role="alert">
+            Movie information not available.
+        </div>
+    </div>
+{% endif %}

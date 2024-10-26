@@ -1,0 +1,23 @@
+.movie-card {
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    cursor: zoom-in;
+  }
+
+  .card-img-top {
+    height: 400px;
+    object-fit: cover;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+  }
+}

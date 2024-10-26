@@ -1,0 +1,70 @@
+.modal-body {
+  .media-container {
+    position: relative;
+    background-color: #000;
+  }
+
+  .poster-wrapper {
+    position: relative;
+    text-align: center;
+
+    &[data-has-trailer="true"] {
+      cursor: pointer;
+    }
+
+    .movie-poster {
+      max-height: 70vh;
+      object-fit: contain;
+      transition: filter 0.3s;
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+
+      i {
+        font-size: 4rem;
+        color: white;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    &:hover {
+      .play-overlay {
+        opacity: 1;
+      }
+
+      .movie-poster {
+        filter: brightness(0.7);
+      }
+    }
+  }
+
+  .trailer-wrapper {
+    background-color: #000;
+
+    .ratio {
+      max-height: 70vh;
+    }
+  }
+
+  .movie-details {
+    .badge {
+      font-weight: normal;
+
+      &.bg-primary {
+        font-size: 1rem;
+      }
+    }
+
+    small.text-muted {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}

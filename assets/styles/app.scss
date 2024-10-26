@@ -1,0 +1,21 @@
+// Import Bootstrap
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+// Import components
+@import "components/cards";
+@import "components/modal";
+@import "components/autocomplete";
+
+// Import pages
+@import "pages/home";
+
+// Global styles
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+}
+
+body {
+  background-color: #f8f9fa;
+}

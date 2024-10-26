@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movies Library{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="row">
+            {# Sidebar avec les filtres #}
+            <div class="col-md-3 col-lg-2">
+                <div class="card sticky-top" style="top: 1rem;">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Genres</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="genreForm">
+                            {% for genre in genres %}
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input genre-checkbox"
+                                           type="checkbox"
+                                           name="genres[]"
+                                           value="{{ genre.id }}"
+                                           id="genre{{ genre.id }}">
+                                    <label class="form-check-label" for="genre{{ genre.id }}">
+                                        {{ genre.name }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary w-100 mt-3" disabled>
+                                Apply Filters
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {# Liste des films #}
+            <div class="col-md-9 col-lg-10">
+                <h2 id="pageTitle">{{ title }}</h2>
+                <div id="moviesList" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    {% include 'commun/_movies_list.html.twig' with {'title': 'Most Populares Movies', 'movies': movies} %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'commun/_movie_modal.html.twig' %}
+{% endblock %}
+

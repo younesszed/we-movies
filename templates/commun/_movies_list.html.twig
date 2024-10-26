@@ -1,0 +1,48 @@
+{% for movie in movies %}
+    <div class="col">
+        <div class="card h-100 movie-card shadow-sm" data-movie-id="{{ movie.id }}">
+            {% if movie.posterPath %}
+                <img src="https://image.tmdb.org/t/p/w342{{ movie.posterPath }}"
+                     class="card-img-top"
+                     alt="{{ movie.title }}"
+                     style="height: 400px; object-fit: cover;">
+            {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                     style="height: 400px;">
+                    <span class="text-muted">No image available</span>
+                </div>
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title text-truncate" title="{{ movie.title }}">{{ movie.title }}</h5>
+                {% if movie.releaseDate %}
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        {{ movie.releaseDate|date('Y') }}
+                    </h6>
+                {% endif %}
+                <p class="card-text" style="height: 4.5rem; overflow: hidden;">
+                    {{ movie.overview|truncate(100, '...') }}
+                </p>
+            </div>
+
+            <div class="card-footer bg-transparent border-top-0">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-star-fill text-warning me-1"></i>
+                        <span>{{ movie.voteAverage|number_format(1) }}</span>
+                    </div>
+                    <small class="text-muted">
+                        {{ movie.voteCount }} votes
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="col-12">
+        <div class="alert alert-info" role="alert">
+            No movies found.
+        </div>
+    </div>
+
+{% endfor %}
