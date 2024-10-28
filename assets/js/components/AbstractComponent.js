@@ -1,4 +1,4 @@
-import {ApiService, apiService} from '../services/ApiService';
+import { ApiService } from '../services/ApiService';
 
 export class AbstractComponent {
     constructor() {

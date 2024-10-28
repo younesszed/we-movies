@@ -1,4 +1,5 @@
 import {AbstractComponent} from "./AbstractComponent";
+import {ApiService} from "../services/ApiService";
 
 export class MoviesFilter extends AbstractComponent {
     constructor() {

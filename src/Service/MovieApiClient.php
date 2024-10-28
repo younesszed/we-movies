@@ -55,6 +55,7 @@ class MovieApiClient
 
             return $this->handleResponse($response);
         } catch (\Exception $e) {
+
             throw new \RuntimeException(
                 "API request failed: {$e->getMessage()}",
                 0,
@@ -73,7 +74,8 @@ class MovieApiClient
         }
 
         if ($statusCode >= 200 && $statusCode < 300) {
-            return json_decode($content, true);
+            $result = json_decode($content, true);
+            return $result;
         }
 
         throw match($statusCode) {

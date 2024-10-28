@@ -12,18 +12,14 @@ class MovieApiRepository implements MovieRepositoryInterface
 {
     private MovieApiClient $apiClient;
 
-    private VideoRepositoryInterface $videoRepository;
 
     /**
      * @param MovieApiClient $apiClient
-     * @param VideoRepositoryInterface $videoRepository
      */
     public function __construct(
         MovieApiClient $apiClient,
-        VideoRepositoryInterface $videoRepository
     ) {
         $this->apiClient = $apiClient;
-        $this->videoRepository = $videoRepository;
     }
 
 
@@ -44,9 +40,11 @@ class MovieApiRepository implements MovieRepositoryInterface
     public function findById(int $id): ?Movie
     {
         try {
-            $data = $this->apiClient->get("/movie/$id");
-            $trailer = $this->videoRepository->getMovieVideoTrailer($id);
-            $data['trailer'] = $trailer;
+            $data = $this->apiClient->get("/movie/$id", ['append_to_response' => 'videos']);
+            $data['trailer'] = current(array_filter($data['videos']['results'], function (array $video){
+                return $video['name'] === 'Official Trailer' && $video['type'] === 'Trailer';
+            }));
+
             return new Movie($data);
         } catch (RuntimeException $e) {
             if ($e->getMessage() === 'Resource not found') {

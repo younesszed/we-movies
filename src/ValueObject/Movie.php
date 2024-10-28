@@ -37,7 +37,7 @@ class Movie implements ValueObjectInterface
         $this->video = $data['video'];
         $this->voteAverage = $data['vote_average'];
         $this->voteCount = $data['vote_count'];
-        $this->trailer = $data['trailer'] ?? null;
+        $this->trailer = !empty($data['trailer']) ? new Video($data['trailer']) : null;
     }
 
     public function isAdult(): bool
@@ -110,7 +110,7 @@ class Movie implements ValueObjectInterface
         return $this->voteCount;
     }
 
-    public function getTrailer(): Video
+    public function getTrailer(): ?Video
     {
         return $this->trailer;
     }
